@@ -115,7 +115,7 @@ export default function Home() {
               ))}
               <motion.div variants={popIn}>
                 <a
-                  href="/Guilbert_Romaric_CV.pdf"
+                  href={`${import.meta.env.BASE_URL}Guilbert_Romaric_CV.pdf`}
                   download
                   className="px-6 py-3 border border-border text-text-secondary rounded-sm font-medium tracking-wide hover:border-rust hover:text-text-primary transition shadow-[3px_3px_0px_rgba(0,0,0,0.5)] active:shadow-none active:translate-x-[3px] active:translate-y-[3px]"
                 >
@@ -153,7 +153,7 @@ export default function Home() {
             <div className="bg-[#f0e6cc] p-3 pb-10" style={{ width: "240px" }}>
               <div className="relative overflow-hidden">
                 <img
-                  src="/photo.png"
+                  src={`${import.meta.env.BASE_URL}photo.png`}
                   alt="Romaric Guilbert"
                   className="w-full block"
                   style={{ filter: "sepia(0.12) contrast(1.05)" }}

@@ -68,7 +68,7 @@ export default function Contact() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.85, type: "spring", stiffness: 500, damping: 25 }}
           whileHover={{ y: -2 }}
-          href="/Guilbert_Romaric_CV.pdf"
+          href={`${import.meta.env.BASE_URL}Guilbert_Romaric_CV.pdf`}
           download
           className="inline-flex items-center gap-2 mb-10 px-5 py-2.5 border border-border rounded-sm text-sm font-mono text-text-secondary hover:border-rust/50 hover:text-rust transition shadow-[3px_3px_0px_rgba(0,0,0,0.3)]"
         >
