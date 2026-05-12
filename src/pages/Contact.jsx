@@ -2,30 +2,117 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import PageWrapper from "../components/PageWrapper";
 
-const fieldVariants = {
-  hidden: { opacity: 0, x: -30 },
-  show: (i) => ({
-    opacity: 1, x: 0,
-    transition: { delay: i * 0.1, type: "spring", stiffness: 400, damping: 30 },
-  }),
-};
+const CONTACTS = [
+  {
+    platform: "Email",
+    handle: "romguilbert5@gmail.com",
+    action: "copy",
+    rotate: "-rotate-1",
+    accent: "#d4874a",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-8 h-8">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+      </svg>
+    ),
+  },
+  {
+    platform: "GitHub",
+    handle: "Rainingtnt",
+    href: "https://github.com/Rainingtnt",
+    rotate: "rotate-1",
+    accent: "#f0e6cc",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+        <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+      </svg>
+    ),
+  },
+  {
+    platform: "LinkedIn",
+    handle: "romaric-guilbert",
+    href: "https://www.linkedin.com/in/romaric-guilbert-893ab839a/",
+    rotate: "-rotate-2",
+    accent: "#0a66c2",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    ),
+  },
+  {
+    platform: "Instagram",
+    handle: "romaricguilbert",
+    href: "https://www.instagram.com/romaricguilbert?igsh=cmxmazV0aGp4ZTFr",
+    rotate: "rotate-2",
+    accent: "#e1306c",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+      </svg>
+    ),
+  },
+];
 
-export default function Contact() {
-  const [sent, setSent] = useState(false);
+function ContactCard({ platform, handle, href, action, rotate, accent, icon, index }) {
+  const [copied, setCopied] = useState(false);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    window.location.href =
-      `mailto:romguilbert5@gmail.com` +
-      `?subject=${encodeURIComponent(data.get("subject"))}` +
-      `&body=${encodeURIComponent(`Name: ${data.get("name")}\n\n${data.get("message")}`)}`;
-    setSent(true);
+  function handleClick() {
+    if (action === "copy") {
+      navigator.clipboard.writeText(handle);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   }
 
+  const inner = (
+    <div className="flex flex-col gap-4">
+      <div style={{ color: accent }}>{icon}</div>
+      <div>
+        <p className="font-mono text-xs text-text-muted uppercase tracking-widest mb-1">
+          {platform}
+        </p>
+        <p className="font-display text-2xl tracking-wider text-text-primary">
+          {handle}
+        </p>
+      </div>
+      <div
+        className="mt-auto text-xs font-mono px-3 py-1.5 rounded-sm border self-start transition-colors"
+        style={{ borderColor: `${accent}40`, color: accent }}
+      >
+        {action === "copy"
+          ? (copied ? "✓ Copied!" : "Copy email")
+          : `Open ${platform}`}
+      </div>
+    </div>
+  );
+
+  const sharedClass = `block bg-card border border-border rounded-sm p-6 shadow-[4px_4px_0px_rgba(0,0,0,0.4)] hover:border-opacity-60 transition-colors cursor-pointer`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50, rotate: -6 }}
+      animate={{ opacity: 1, y: 0, rotate: rotate.includes("-") ? -parseInt(rotate.replace(/\D/g, "")) : parseInt(rotate.replace(/\D/g, "")) }}
+      transition={{ delay: index * 0.1, type: "spring", stiffness: 400, damping: 28 }}
+      whileHover={{ rotate: 0, y: -6, transition: { type: "spring", stiffness: 500, damping: 20 } }}
+      style={{ "--accent": accent }}
+    >
+      {action === "copy" ? (
+        <div onClick={handleClick} className={sharedClass} style={{ borderColor: copied ? `${accent}60` : undefined }}>
+          {inner}
+        </div>
+      ) : (
+        <a href={href} target="_blank" rel="noopener noreferrer" className={sharedClass}>
+          {inner}
+        </a>
+      )}
+    </motion.div>
+  );
+}
+
+export default function Contact() {
   return (
     <PageWrapper>
-      <section className="w-full max-w-xl mt-12 px-4 pb-16">
+      <section className="w-full max-w-4xl mt-12 px-4 pb-16">
         <motion.h2
           initial={{ opacity: 0, x: -40 }}
           animate={{ opacity: 1, x: 0 }}
@@ -37,90 +124,31 @@ export default function Contact() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.65 }}
-          className="text-text-secondary mb-8"
+          transition={{ delay: 0.3 }}
+          className="text-text-secondary mb-12"
         >
-          Open to opportunities, collaborations, and interesting projects.
+          Pick your platform — I'll get back to you.
         </motion.p>
 
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
+          {CONTACTS.map((c, i) => (
+            <ContactCard key={c.platform} {...c} index={i} />
+          ))}
+        </div>
+
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.75, type: "spring", stiffness: 400, damping: 30 }}
-          className="flex flex-col gap-2 mb-8 font-mono text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.55 }}
         >
-          <a href="mailto:romguilbert5@gmail.com" className="text-rust hover:text-amber transition">
-            romguilbert5@gmail.com
-          </a>
-          <a href="https://github.com/Rainingtnt" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-rust transition">
-            github.com/Rainingtnt
-          </a>
-          <a href="https://www.linkedin.com/in/romaric-guilbert-893ab839a/" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-rust transition">
-            linkedin.com/in/romaric-guilbert
-          </a>
-          <a href="https://www.instagram.com/romaricguilbert?igsh=cmxmazV0aGp4ZTFr" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-rust transition">
-            instagram.com/romaricguilbert
+          <a
+            href={`${import.meta.env.BASE_URL}Guilbert_Romaric_CV.pdf`}
+            download
+            className="inline-flex items-center gap-3 px-6 py-3 border border-border rounded-sm text-sm font-mono text-text-secondary hover:border-rust/50 hover:text-rust transition shadow-[3px_3px_0px_rgba(0,0,0,0.3)]"
+          >
+            Download CV (PDF)
           </a>
         </motion.div>
-
-        <motion.a
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.85, type: "spring", stiffness: 500, damping: 25 }}
-          whileHover={{ y: -2 }}
-          href={`${import.meta.env.BASE_URL}Guilbert_Romaric_CV.pdf`}
-          download
-          className="inline-flex items-center gap-2 mb-10 px-5 py-2.5 border border-border rounded-sm text-sm font-mono text-text-secondary hover:border-rust/50 hover:text-rust transition shadow-[3px_3px_0px_rgba(0,0,0,0.3)]"
-        >
-          Download CV (PDF)
-        </motion.a>
-
-        {sent ? (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, rotate: -3 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ type: "spring", stiffness: 500, damping: 25 }}
-            className="bg-card border border-rust/30 rounded-sm p-8 text-center shadow-[4px_4px_0px_rgba(212,135,74,0.2)]"
-          >
-            <p className="font-display text-3xl tracking-wider text-rust">Email client opened!</p>
-            <p className="text-text-secondary text-sm mt-2">Thanks for reaching out.</p>
-          </motion.div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {[
-              { name: "name",    label: "Name",    type: "input",    placeholder: "Your name" },
-              { name: "subject", label: "Subject", type: "input",    placeholder: "What's this about?" },
-              { name: "message", label: "Message", type: "textarea", placeholder: "Tell me about your project..." },
-            ].map(({ name, label, type, placeholder }, i) => (
-              <motion.div key={name} custom={i} variants={fieldVariants} initial="hidden" animate="show">
-                <label className="block text-xs font-mono text-text-muted uppercase tracking-[0.2em] mb-1.5">
-                  {label}
-                </label>
-                {type === "textarea" ? (
-                  <textarea
-                    name={name} required rows={5} placeholder={placeholder}
-                    className="w-full px-4 py-3 bg-card border border-border rounded-sm text-text-primary placeholder-text-muted font-mono text-sm focus:outline-none focus:border-rust/50 transition resize-none"
-                  />
-                ) : (
-                  <input
-                    name={name} type="text" required placeholder={placeholder}
-                    className="w-full px-4 py-3 bg-card border border-border rounded-sm text-text-primary placeholder-text-muted font-mono text-sm focus:outline-none focus:border-rust/50 transition"
-                  />
-                )}
-              </motion.div>
-            ))}
-
-            <motion.button
-              custom={3} variants={fieldVariants} initial="hidden" animate="show"
-              whileHover={{ y: -2, backgroundColor: "#c4943a" }}
-              whileTap={{ scale: 0.97, y: 2 }}
-              type="submit"
-              className="w-full py-3 bg-rust text-bg font-display text-2xl tracking-widest rounded-sm transition shadow-[3px_3px_0px_rgba(0,0,0,0.4)]"
-            >
-              Send
-            </motion.button>
-          </form>
-        )}
       </section>
     </PageWrapper>
   );
