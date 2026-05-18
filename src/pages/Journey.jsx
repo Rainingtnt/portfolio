@@ -7,7 +7,7 @@ const TIMELINE = [
     period: "2026 — now",
     title: "Bachelor — AI & Data",
     tag: "Bachelor",
-    content: "Building AI-powered tools in Python: a conversational assistant for pizzerias (EatIA), an NLP analysis engine for classic literature, and ML models predicting customer purchasing behaviour. Python became my main tool; AI became my direction.",
+    content: "Building AI-powered tools in Python: a conversational assistant for pizzerias (EatIA), an NLP analysis engine for classic literature, and ML models predicting customer purchase behaviour. Python became my main tool; AI became my direction.",
   },
   {
     period: "2026",
@@ -19,19 +19,19 @@ const TIMELINE = [
     period: "Jan – Mar 2026",
     title: "Shell & advanced C",
     tag: "Masters",
-    content: "Built a fully functional Bash-like shell: forking processes, piping, redirections, and environment variables — all from scratch. Solo stumper challenges pushed problem-solving under time pressure.",
+    content: "Built a fully functional Bash-like shell: forking processes, piping, redirections, and environment variables — all from scratch. Solo timed challenges developed problem-solving skills under pressure.",
   },
   {
     period: "Oct – Dec 2025",
     title: "Systems & Math modules",
     tag: "Masters",
-    content: "Tackled Unix system programming (signals, /proc, process trees) and applied maths to code — simulating 3D ball trajectories, cracking cipher algorithms, and modelling architectural constraints.",
+    content: "Tackled Unix system programming (signals, /proc, process trees) and applied mathematics to code — simulating 3D ball trajectories, solving cipher challenges, and modelling architectural constraints.",
   },
   {
     period: "Sep 2025",
     title: "Epitech Masters — C Pool",
     tag: "Masters",
-    content: "Dived straight into C: reimplementing printf, ls, top, and writing a duck-hunting game with CSFML. The pool was intense — no hand-holding, just a task, a man page, and a deadline.",
+    content: "Jumped straight into C: reimplementing printf, ls, top, and writing a duck-hunting game with CSFML. The pool was intense — no guidance, just a task, a man page, and a deadline.",
   },
 ];
 

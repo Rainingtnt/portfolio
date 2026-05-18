@@ -55,7 +55,7 @@ const BACHELOR_PROJECTS = [
   },
   {
     name: "NextBuy",
-    description: "Data science project on grocery e-commerce data: exploratory analysis, visualisation, and ML models predicting customer purchase behaviour.",
+    description: "Data science project on grocery e-commerce data: exploratory analysis, visualization, and ML models predicting customer purchase behaviour.",
     tech: ["Python", "Jupyter", "pandas", "scikit-learn", "ML"],
     repo: "https://github.com/Rainingtnt/nextbuy",
   },

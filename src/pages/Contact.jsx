@@ -130,6 +130,23 @@ export default function Contact() {
           Pick your platform — I'll get back to you.
         </motion.p>
 
+        {/* Address */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, type: "spring", stiffness: 400, damping: 30 }}
+          className="flex items-start gap-3 mb-10"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5 text-rust mt-0.5 flex-shrink-0">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+          </svg>
+          <div>
+            <p className="text-text-primary font-mono text-sm">35 Rue Léopold Galy</p>
+            <p className="text-text-secondary font-mono text-sm">31700 Blagnac, Toulouse</p>
+          </div>
+        </motion.div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-10">
           {CONTACTS.map((c, i) => (
             <ContactCard key={c.platform} {...c} index={i} />

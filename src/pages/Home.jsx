@@ -130,7 +130,7 @@ export default function Home() {
               transition={{ delay: 1.4, duration: 0.5 }}
               className="mt-8 text-xs text-text-muted font-mono tracking-widest"
             >
-              Toulouse · Internship Jun–Aug 2026 · French (native) · English (fluent)
+              Blagnac, Toulouse · Internship Jun–Aug 2026 · French (native) · English (fluent)
             </motion.p>
           </div>
 
