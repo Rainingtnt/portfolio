@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { LanguageProvider } from "./context/LanguageContext";
 import Home from "./pages/Home";
 import Journey from "./pages/Journey";
 import Projects from "./pages/Projects";
@@ -39,6 +40,7 @@ function AnimatedRoutes() {
 export default function App() {
   return (
     <BrowserRouter>
+      <LanguageProvider>
       <div className="min-h-screen flex flex-col items-center px-4 bg-bg text-text-primary">
         <div className="fixed inset-0 bg-warm-glow pointer-events-none z-0" />
         <div className="relative z-10 w-full flex flex-col items-center">
@@ -49,6 +51,7 @@ export default function App() {
           <Footer />
         </div>
       </div>
+      </LanguageProvider>
     </BrowserRouter>
   );
 }

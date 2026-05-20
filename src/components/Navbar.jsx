@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../context/LanguageContext";
 
 const LINKS = [
   { to: "/",         label: "Home"     },
@@ -43,8 +44,17 @@ const SOCIALS = [
 export default function Navbar() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const { lang, setLang, t } = useLanguage();
 
   const close = () => setOpen(false);
+
+  const NAV_LINKS = [
+    { to: "/",         label: t.nav.home     },
+    { to: "/journey",  label: t.nav.journey  },
+    { to: "/projects", label: t.nav.projects },
+    { to: "/skills",   label: t.nav.skills   },
+    { to: "/contact",  label: t.nav.contact  },
+  ];
 
   return (
     <>
@@ -57,7 +67,7 @@ export default function Navbar() {
           <div className="flex items-center gap-6">
             {/* Desktop links */}
             <div className="hidden sm:flex gap-6 text-sm font-medium">
-              {LINKS.map((link) => (
+              {NAV_LINKS.map((link) => (
                 <Link
                   key={link.to}
                   to={link.to}
@@ -80,6 +90,24 @@ export default function Navbar() {
                   {icon}
                 </a>
               ))}
+            </div>
+
+            {/* Language switcher */}
+            <div className="flex items-center border border-border rounded-sm overflow-hidden text-sm">
+              <button
+                onClick={() => setLang("en")}
+                className={`px-2 py-1 transition-colors ${lang === "en" ? "bg-rust text-bg" : "text-text-muted hover:text-text-primary"}`}
+                aria-label="English"
+              >
+                🇬🇧
+              </button>
+              <button
+                onClick={() => setLang("fr")}
+                className={`px-2 py-1 transition-colors ${lang === "fr" ? "bg-rust text-bg" : "text-text-muted hover:text-text-primary"}`}
+                aria-label="Français"
+              >
+                🇫🇷
+              </button>
             </div>
 
             {/* Hamburger — mobile only */}
@@ -118,7 +146,7 @@ export default function Navbar() {
             transition={{ duration: 0.35, ease: [0.87, 0, 0.13, 1] }}
             className="fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-8 sm:hidden"
           >
-            {LINKS.map((link, i) => (
+            {NAV_LINKS.map((link, i) => (
               <motion.div
                 key={link.to}
                 initial={{ opacity: 0, x: -40 }}
