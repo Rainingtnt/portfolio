@@ -24,7 +24,7 @@ const slideUp = {
 const TOOLS = ["C", "Python", "React", "JavaScript", "TailwindCSS", "Jupyter", "pandas", "scikit-learn", "Git", "Linux", "Bash"];
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const h = t.home;
 
   return (
@@ -112,7 +112,7 @@ export default function Home() {
             <p className="text-text-secondary text-sm mb-10">{h.aboutSub}</p>
           </motion.div>
 
-          <motion.div variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-60px" }} className="flex flex-wrap gap-6 justify-start">
+          <motion.div key={lang} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.1 } } }} initial="hidden" whileInView="show" viewport={{ once: false, margin: "-60px" }} className="flex flex-wrap gap-6 justify-start">
             {h.about.map(({ emoji, label, desc, href }, i) => {
               const rotate = ABOUT_ROTATIONS[i];
               const Tag = href ? motion.a : motion.div;

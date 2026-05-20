@@ -20,7 +20,7 @@ export default {
     stackTitle: "Mes outils",
     about: [
       { emoji: "🏚️", label: "Urbex",      desc: "Explorer les lieux oubliés" },
-      { emoji: "🛍️", label: "Chiner",     desc: "Dénicher des pépites vintage" },
+      { emoji: "🛍️", label: "Thrifting",  desc: "Dénicher des pépites vintage" },
       { emoji: "🎸", label: "Rock 90's",  desc: "L'âge d'or des guitares" },
       { emoji: "🎨", label: "Art digital", desc: "Artiste sur Instagram", href: "https://www.instagram.com/romaricguilbert?igsh=cmxmazV0aGp4ZTFr" },
       { emoji: "🍳", label: "Cuisine",    desc: "Toujours en expérimentation" },
